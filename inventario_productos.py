@@ -23,7 +23,7 @@ def buscar_producto():
         print(f"El producto {nombre} no se encuentra en el inventario")
     else:
         print(f"Producto: {nombre}")
-        print(f"Precio: {inventario[nombre]['precio']:.2f}")
+        print(f"Precio: ${inventario[nombre]['precio']:.2f}")
         print(f"Cantidad: {inventario[nombre]['cantidad']}")
         
 def actualizar_datos():
@@ -62,8 +62,15 @@ def actualizar_datos():
                 nuevo_valor=float(nuevo_valor)
             elif type(producto[campo_elegido]=='int'):
                 nuevo_valor=int(nuevo_valor)
-            producto[campo_elegido]=nuevo_valor
-            print(f"El campo{campo_elegido} ha sido actualizado correctamente")
+                
+            confirmar=input(f"Esta seguro que desea actualizar el dato del producto {campo_elegido}? (s/n): ").strip().lower()
+            if confirmar=="s":
+                producto[campo_elegido]=nuevo_valor
+                print(f"El campo {campo_elegido} ha sido actualizado correctamente")
+            elif confirmar=="n":
+                print(f"La operacion ha sido cancelada, el producto {producto} no ha sido actualizado.")
+            else:
+                print("ERROR: Ingrese solo una de las dos opciones")
             
     except ValueError:
             print("ingrese un valor numerico valido")
